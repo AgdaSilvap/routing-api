@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest  # Baixar a última versão do PostgreSQL
+    container_name: postgres_container  # Nome do container
+    environment:
+      POSTGRES_USER: agda  # Nome do usuário padrão
+      POSTGRES_PASSWORD: agda-password  # Senha do usuário padrão
+      POSTGRES_DB: routingDB  # Nome do banco de dados padrão
+    ports:
+      - "5432:5432"  # Mapeando a porta 5432 do container para a porta 5432 da máquina local
+    volumes:
+      - postgres_data:/var/lib/postgresql/data  # Volume para persistir dados do PostgreSQL
+    networks:
+      - postgres_network
+
+volumes:
+  postgres_data:  # Volume para armazenar dados persistentemente
+
+networks:
+  postgres_network:  # Rede dedicada para o PostgreSQL
+    driver: bridge
