@@ -15,12 +15,12 @@ from core.configs import settings
 from core.security import verifiy_password
 
 oauth2_schema = OAuth2PasswordBearer(
-    tokenUrl=f"{settings.API_V1_STR}/user/login"
+    tokenUrl=f"{settings.API_V1_STR}/users/login"
 )
 
-async def authenticate(userName: str, password: str, db: AsyncSession) -> Optional[UserModel]:
+async def authenticate(username: str, password: str, db: AsyncSession) -> Optional[UserModel]:
     async with db as session:
-        query = select(UserModel).filter(UserModel.userName == userName)
+        query = select(UserModel).filter(UserModel.username == username)
         result = await session.execute(query)
         user : UserModel = result.scalars().unique().one_or_none()
 
