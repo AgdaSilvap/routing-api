@@ -38,7 +38,7 @@ async def delete_user(user_id: int, db: AsyncSession = Depends(get_session)):
     async with db as session:
         query = select(UserModel).filter(UserModel.id == user_id)
         result = await session.execute(query)
-        user_deleted: UserSchemaBase = result.sacalars().unique().one_or_none()
+        user_deleted: UserSchemaBase = result.scalars().unique().one_or_none()
 
         if user_deleted:
             await session.delete(user_deleted)
